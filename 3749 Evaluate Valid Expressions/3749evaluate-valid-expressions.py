@@ -1,0 +1,18 @@
+class Solution:
+    def evaluateExpression(self, expression: str) -> int:
+
+        operation = {'add': lambda x, y: x + y, 'sub': lambda x, y: x - y,
+                     'mul': lambda x, y: x * y, 'div': lambda x, y: a // y }
+
+        stack = []
+        items = (expression.replace('(', '|') .replace(',', '|')
+                         .replace(')', '|)').split('|'))
+        items = [int(x) if x[-1].isdigit() else x for x in items]
+
+        for item in items:
+            if item == ')':
+                b, a, op = stack.pop(), stack.pop(), stack.pop()
+                item = operation[op](a,b)
+            stack.append(item)
+                
+        return stack[0]
