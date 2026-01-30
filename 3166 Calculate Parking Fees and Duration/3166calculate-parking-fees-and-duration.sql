@@ -1,0 +1,4 @@
+# Write your MySQL query statement below
+WITH a AS (SELECT car_id, lot_id, SUM(TIME_TO_SEC(TIMEDIFF(exit_time, entry_time))) AS total_time FROM ParkingTransactions GROUP BY car_id, lot_id)
+# We need MAX() in MAX(a.lot_id), otherwise we have the error Subquery returns more than 1 row
+SELECT car_id, SUM(fee_paid) AS total_fee_paid, ROUND(SUM(fee_paid) * 3600 / SUM(TIME_TO_SEC(TIMEDIFF(exit_time, entry_time))), 2) AS avg_hourly_fee, (SELECT a.lot_id FROM a WHERE a.car_id = p.car_id AND total_time = (SELECT MAX(total_time) FROM a WHERE a.car_id = p.car_id)) AS most_time_lot FROM ParkingTransactions p GROUP BY car_id ORDER BY car_id
