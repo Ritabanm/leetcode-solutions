@@ -1,0 +1,2 @@
+-- Write your PostgreSQL query statement below
+select content_id, content_text as original_text, array_to_string( array (select upper(left(w,1)) || lower(substr(w,2)) from unnest(string_to_array(content_text, ' ')) as w ), ' ') as converted_text  from user_content 
