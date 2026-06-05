@@ -1,0 +1,12 @@
+class Solution:
+    def evenProduct(self, nums: List[int]) -> int:
+        n = len(nums)
+        count = 0
+        last_even_index = -1
+
+        for i in range(n):
+            if nums[i] % 2 == 0:
+                last_even_index = i
+            count += last_even_index + 1
+        return count
+        
