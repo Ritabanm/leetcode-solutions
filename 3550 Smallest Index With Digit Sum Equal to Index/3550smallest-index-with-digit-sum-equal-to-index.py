@@ -1,8 +1,16 @@
 class Solution:
-    def smallestIndex(self, nums: List[int]) -> int:
+    def smallestIndex(self, nums: list[int]) -> int:
+        def get_digit_sum(num: int) -> int:
+            total = 0
 
-        for i in  range(len(nums)):
+            while num:
+                num, digit = divmod(num, 10)
+                total += digit
 
-            if sum(map(int, str(nums[i]))) == i: return i
+            return total
 
-        return - 1
+        for i, num in enumerate(nums):
+            if get_digit_sum(num) == i:
+                return i
+
+        return -1
