@@ -1,26 +1,16 @@
 class Solution:
     def trap(self, height):
-
-        #Edge case: height is empty
-        if not height or len(height)==0:
-            return 0
-        
-        #variables:
-        l = 0
-        r = len(height)-1 
-        lmax = 0
-        rmax = 0
+        left , right = 0, len(height)-1
         ans = 0
-
-        while l<r:
-            if height[l]<height[r]:
-                lmax = max(lmax, height[l])
-                ans+=lmax-height[l]
-                l+=1
+        left_max, right_max = 0,0
+        while left<right:
+            if height[left]<height[right]:
+                left_max = max(left_max, height[left])
+                ans+=left_max-height[left]
+                left+=1
             else:
-                rmax = max(rmax, height[r])
-                ans+=rmax-height[r]
-                r-=1
+                right_max = max(right_max, height[right])
+                ans+= right_max-height[right]
+                right-=1
         return ans
-
         #T: O(N), S:O(1)
